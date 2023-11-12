@@ -1,0 +1,29 @@
+{
+  "name": "journitask",
+  "version": "1.0.0",
+  "description": "Daily journal/task tracking application",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepare": "husky install",
+    "pre-commit": "lint-staged"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/npham49/journitask.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/npham49/journitask/issues"
+  },
+  "homepage": "https://github.com/npham49/journitask#readme",
+  "devDependencies": {
+    "@commitlint/cli": "^17.6.5",
+    "@commitlint/config-conventional": "^17.6.5",
+    "husky": "^8.0.0",
+    "lint-staged": "^13.2.2",
+    "prettier": "2.8.8",
+    "pretty-quick": "^3.1.3"
+  }
+}
