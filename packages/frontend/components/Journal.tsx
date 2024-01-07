@@ -2,6 +2,26 @@
 import React from "react";
 
 import { Calendar } from "@/components/ui/calendar";
+import EditorJS from "@editorjs/editorjs";
+import Header from "@editorjs/header";
+// @ts-ignore
+import List from "@editorjs/list";
+
+const editor = new EditorJS({
+  /**
+   * Id of Element that should contain the Editor
+   */
+  holder: "editorjs",
+
+  /**
+   * Available Tools list.
+   * Pass Tool's class or Settings object for each Tool you want to use
+   */
+  tools: {
+    header: Header,
+    list: List,
+  },
+});
 
 const Journal = () => {
   const editorRef = React.createRef();
@@ -25,6 +45,7 @@ const Journal = () => {
         </div>
         <div className="w-full lg:w-2/3">
           <h2>Editor</h2>
+          <div id="editorjs"></div>
         </div>
       </div>
     </div>
