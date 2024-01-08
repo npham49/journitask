@@ -1,4 +1,4 @@
-import Journal from "@/components/Journal";
+import Journal from "@/components/journal/Journal";
 
 const Page = () => {
   return (
