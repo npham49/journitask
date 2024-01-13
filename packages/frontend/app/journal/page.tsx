@@ -19,7 +19,7 @@ const Page = ({
     <div className="container min-h-screen">
       <div className="text-center m-4">
         <h1>Daily Journal</h1>
-        <h2>Date: {date.toLocaleDateString()}</h2>
+        <h2>Date: {date.toDateString()}</h2>
       </div>
       <Journal date={date} />
     </div>

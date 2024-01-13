@@ -71,7 +71,7 @@ const Journal = ({ date }: { date: Date }) => {
   return (
     <div className="flex flex-col w-full">
       <div className="flex flex-col lg:flex-row w-full">
-        <div className="w-full lg:w-1/3">
+        <div className="w-full lg:w-1/3 m-4">
           <Calendar
             mode="single"
             selected={date}
@@ -79,10 +79,8 @@ const Journal = ({ date }: { date: Date }) => {
             className="rounded-lg border mx-auto w-[278px]"
           />
         </div>
-        <div className="w-full lg:w-2/3">
-          <div className="border rounded-lg p-4">
-            <Editor initialContent={initial} />
-          </div>
+        <div className="w-full lg:w-2/3 m-4">
+          <Editor initialContent={initial} />
         </div>
       </div>
     </div>
