@@ -1,8 +1,9 @@
 "use client";
-import React from "react";
+import React, { useCallback } from "react";
 import dynamic from "next/dynamic";
 
 import { Calendar } from "@/components/ui/calendar";
+import { usePathname, useSearchParams, useRouter } from "next/navigation";
 
 const initial = [
   {
@@ -44,21 +45,37 @@ const initial = [
 
 const Editor = dynamic(() => import("./Editor"), { ssr: false });
 
-const Journal = () => {
-  const [date, setDate] = React.useState<Date | undefined>(new Date());
+const Journal = ({ date }: { date: Date }) => {
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
+  const createQueryString = useCallback(
+    (name: string, value: string) => {
+      const params = new URLSearchParams(searchParams.toString());
+      params.set(name, value);
+
+      return params.toString();
+    },
+    [searchParams]
+  );
+
+  const onSelect = (date: Date | undefined) => {
+    router.push(
+      pathname +
+        "?" +
+        createQueryString("date", (date || new Date()).toISOString())
+    );
+  };
 
   return (
     <div className="flex flex-col w-full">
-      <div className=" text-center m-4">
-        <p className="text-4xl">Daily Journal</p>
-        <p className="text-xl">current selected date</p>
-      </div>
       <div className="flex flex-col lg:flex-row w-full">
         <div className="w-full lg:w-1/3">
           <Calendar
             mode="single"
             selected={date}
-            onSelect={setDate}
+            onSelect={onSelect}
             className="rounded-lg border mx-auto w-[278px]"
           />
         </div>
