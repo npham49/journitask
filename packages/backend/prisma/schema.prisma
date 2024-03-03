@@ -2,51 +2,51 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
+    provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
 }
 
 // Define the User model
 model User {
-  id            Int      @id @default(autoincrement())
-  clerkId       String   @unique   // Unique identifier from Clerk.dev
-  journalEntries JournalEntry[]
-  tasks          Task[]
-  notes          Note[]
+    id             Int            @id @default(autoincrement())
+    clerkId        String         @unique // Unique identifier from Clerk.dev
+    journalEntries JournalEntry[]
+    tasks          Task[]
+    notes          Note[]
 }
 
 // Define the JournalEntry model
 model JournalEntry {
-  id        Int       @id @default(autoincrement())
-  description   String
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @default(now())
-  user      User      @relation(fields: [userId], references: [id])
-  userId    Int
+    id          Int      @id @default(autoincrement())
+    date        DateTime @default(now()) // Date of the journal entry
+    description String
+    createdAt   DateTime @default(now())
+    updatedAt   DateTime @default(now())
+    user        User     @relation(fields: [userId], references: [id])
+    userId      Int
 }
 
 // Define the Task model
 model Task {
-  id        Int       @id @default(autoincrement())
-  description   String
-  status    String    // active, completed, or backlog
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @default(now())
-  user      User      @relation(fields: [userId], references: [id])
-  userId    Int
+    id          Int      @id @default(autoincrement())
+    description String
+    status      String // active, completed, or backlog
+    createdAt   DateTime @default(now())
+    updatedAt   DateTime @default(now())
+    user        User     @relation(fields: [userId], references: [id])
+    userId      Int
 }
 
 // Define the Note model
 model Note {
-  id        Int       @id @default(autoincrement())
-  description   String
-  createdAt DateTime  @default(now())
-  user      User      @relation(fields: [userId], references: [id])
-  userId    Int
-  category  String?   // Allow categorization of notes
+    id          Int      @id @default(autoincrement())
+    description String
+    createdAt   DateTime @default(now())
+    user        User     @relation(fields: [userId], references: [id])
+    userId      Int
+    category    String? // Allow categorization of notes
 }
-
