@@ -2,6 +2,7 @@ import Image from "next/image";
 import { MainNav } from "./ui/main-nav";
 import { ModeToggle } from "./Toggle";
 import Link from "next/link";
+import { UserButton } from "@clerk/nextjs";
 
 const Navbar = () => {
   return (
@@ -13,6 +14,7 @@ const Navbar = () => {
         <MainNav className="mx-6" />
         <div className="ml-auto flex items-center space-x-4">
           <ModeToggle />
+          <UserButton />
         </div>
       </div>
     </div>
