@@ -3,6 +3,8 @@ import React, { useCallback } from "react";
 import dynamic from "next/dynamic";
 import { Calendar } from "@/components/ui/calendar";
 import { usePathname, useSearchParams, useRouter } from "next/navigation";
+import { useAuth } from "@clerk/nextjs";
+import axios from "axios";
 
 const initial = [
   {
@@ -45,6 +47,7 @@ const initial = [
 const Editor = dynamic(() => import("./Editor"), { ssr: false });
 
 const Journal = ({ date }: { date: Date }) => {
+  const { getToken } = useAuth();
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -67,6 +70,26 @@ const Journal = ({ date }: { date: Date }) => {
     );
   };
 
+  const fetchJournal = async () => {
+    const token = await getToken();
+    const response = await axios
+      .get(process.env.PUBLIC_APP_API_URL || "http://localhost:3030", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        console.log(res);
+        return res.data;
+      })
+      .catch((err) => {
+        console.log(err);
+        return err;
+      });
+
+    return response.data;
+  };
+
   return (
     <div className="flex flex-col w-full">
       <div className="flex flex-col lg:flex-row w-full">
@@ -79,6 +102,9 @@ const Journal = ({ date }: { date: Date }) => {
           />
         </div>
         <div className="w-full lg:w-2/3 m-4">
+          <button className="w-50 h-10 bg-red-300" onClick={fetchJournal}>
+            Fetch Journal
+          </button>
           <Editor initialContent={initial} />
         </div>
       </div>
