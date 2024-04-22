@@ -14,6 +14,7 @@ const Page = ({
   const date = searchParams?.date
     ? new Date(String(searchParams?.date))
     : new Date();
+  console.log(date);
 
   return (
     <div className="container min-h-screen">

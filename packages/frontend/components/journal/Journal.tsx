@@ -66,7 +66,10 @@ const Journal = ({ date }: { date: Date }) => {
     router.push(
       pathname +
         "?" +
-        createQueryString("date", (date || new Date()).toISOString())
+        createQueryString(
+          "date",
+          (date || new Date()).toLocaleDateString("en-US")
+        )
     );
   };
 

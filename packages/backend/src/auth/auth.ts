@@ -7,7 +7,10 @@ import jwt from "jsonwebtoken";
 // The token is decoded using the public key from the env variable
 // Thedecode token is returned or an error is returned
 
-const decode = async (req: Request, res: any) => {
+const decode = async (sessToken: string) => {
+  if (!sessToken) {
+    return { error: "No token" };
+  }
   const splitPem = process.env.CLERK_JWT_VERIFICATION_KEY?.match(/.{1,64}/g);
   const publicKey =
     "-----BEGIN PUBLIC KEY-----\n" +
@@ -16,11 +19,6 @@ const decode = async (req: Request, res: any) => {
       .replace("-----BEGIN PUBLIC KEY-----\n", "")
       .replace("\n-----END PUBLIC KEY-----", "") +
     "\n-----END PUBLIC KEY-----";
-
-  const sessToken = req.headers.authorization?.split(" ")[1];
-  if (!sessToken) {
-    return { error: "No token" };
-  }
   let decoded;
   try {
     // console.log(publicKey, sessToken);
